@@ -1,4 +1,4 @@
-/******************************************************************************
+﻿/******************************************************************************
 * Copyright (c) 2019, Connor Manning (connor@hobu.co)
 *
 * Entwine -- Point cloud indexing
@@ -19,8 +19,8 @@ namespace entwine { using json = nlohmann::json; }
 // https://github.com/google/googletest/pull/1186
 namespace nlohmann
 {
-inline void PrintTo(json const& json, std::ostream* os)
-{
-    *os << json.dump();
-}
+	inline void PrintTo(json const& json, std::ostream* os)
+	{
+		*os << json.dump();
+	}
 }

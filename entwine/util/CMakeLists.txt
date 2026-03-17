@@ -28,6 +28,7 @@ set(
     "${BASE}/stack-trace.hpp"
     "${BASE}/time.hpp"
     "${BASE}/unique.hpp"
+    "${BASE}/encoding_conversion.hpp"
 )
 
 install(FILES ${HEADERS} DESTINATION include/entwine/${MODULE})

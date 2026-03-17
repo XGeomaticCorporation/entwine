@@ -26,6 +26,7 @@
 #include <entwine/types/dimension.hpp>
 #include <entwine/types/srs.hpp>
 #include <entwine/util/stack-trace.hpp>
+#include <entwine/util/encoding_conversion.hpp>
 
 namespace
 {
@@ -61,10 +62,10 @@ void App::addInput(std::string description, const bool asDefault)
         {
             for (const json& entry : j)
             {
-                m_json["input"].push_back(entry);
+                m_json["input"].push_back(local_to_utf8(entry));
             }
         }
-        else m_json["input"].push_back(j);
+        else m_json["input"].push_back(local_to_utf8(j));
     });
 
     if (asDefault) m_ap.addDefault("--input", "-i", description, f);
@@ -73,7 +74,7 @@ void App::addInput(std::string description, const bool asDefault)
 
 void App::addOutput(std::string description, const bool asDefault)
 {
-    auto f([this](json j) { m_json["output"] = j; });
+    auto f([this](json j) { m_json["output"] = local_to_utf8(j); });
 
     if (asDefault) m_ap.addDefault("--output", "-o", description, f);
     else m_ap.add("--output", "-o", description, f);

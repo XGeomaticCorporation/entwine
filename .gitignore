@@ -1,4 +1,4 @@
-credentials.json
+﻿credentials.json
 CMakeCache.txt
 CMakeFiles/
 
@@ -6,6 +6,7 @@ CMakeFiles/
 build/*
 dev/*
 doc/build/*
+install/*
 
 test/data/*
 

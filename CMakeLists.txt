@@ -1,5 +1,20 @@
 cmake_minimum_required(VERSION 3.5)
 
+# ------------------------------------------------------------------------------
+# Dependency configuration
+# ------------------------------------------------------------------------------
+# Load automatically VCPKG toolchain if available
+IF(NOT DEFINED CMAKE_TOOLCHAIN_FILE)
+  IF(DEFINED ENV{VCPKG_ROOT})
+      SET(CMAKE_TOOLCHAIN_FILE "$ENV{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake" CACHE STRING "")
+      IF(NOT DEFINED VCPKG_TARGET_TRIPLET AND DEFINED ENV{VCPKG_DEFAULT_TRIPLET})
+          SET(VCPKG_TARGET_TRIPLET "$ENV{VCPKG_DEFAULT_TRIPLET}" CACHE STRING "")
+      ENDIF()
+  ELSE()
+      SET(CMAKE_TOOLCHAIN_FILE "${CMAKE_CURRENT_SOURCE_DIR}/vcpkg-exports/scripts/buildsystems/vcpkg.cmake" CACHE STRING "Vcpkg toolchain file")
+  ENDIF()
+ENDIF()
+
 project(entwine)
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/modules" ${CMAKE_MODULE_PATH})
 
@@ -34,7 +49,7 @@ set(entwine_defs_hpp
 configure_file(${entwine_defs_hpp_in} ${entwine_defs_hpp})
 
 option(WITH_ZSTD
-    "Build support for compression/decompression with Zstd." TRUE)
+    "Build support for compression/decompression with Zstd." FALSE)
 if (NOT WITH_ZSTD)
     add_definitions(-DNO_ZSTD)
 endif()
@@ -96,7 +111,7 @@ set_target_properties(
 #
 # Test
 #
-option(WITH_TESTS "Choose if Entwine unit tests should be built" TRUE)
+option(WITH_TESTS "Choose if Entwine unit tests should be built" FALSE)
 if (WITH_TESTS)
     message("Configuring with unit tests")
     enable_testing()
