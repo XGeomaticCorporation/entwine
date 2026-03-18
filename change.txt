@@ -1,0 +1,5 @@
+1、修改： entwine\third\nlohmann\json.hpp内容修改为3.11.3版本
+2、增加encoding_conversoin.hpp文件：定义函数：local_to_utf8（）
+3、修改entwine.cpp中addInput和addOutput
+4、arbiter.cpp文件中Fs::put(): 增加内容：std::filesystem::path fs_path = std::filesystem::u8path(path);
+5、修复系统用户名为中文字符的问题：修改arbiter.cpp中getTempPath函数的实现
